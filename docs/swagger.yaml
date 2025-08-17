@@ -1,0 +1,317 @@
+basePath: /
+definitions:
+  main.Colecao:
+    properties:
+      autor:
+        type: string
+      dataAtualizacao:
+        type: string
+      dataCriacao:
+        type: string
+      descricao:
+        type: string
+      id:
+        type: string
+      musicas:
+        items:
+          type: string
+        type: array
+      titulo:
+        type: string
+    type: object
+  main.EstiloProjecao:
+    properties:
+      corFundo:
+        type: string
+      corTexto:
+        type: string
+      tamanhoFonte:
+        type: integer
+    type: object
+  main.Musica:
+    properties:
+      autor:
+        type: string
+      categoria:
+        type: string
+      dataAtualizacao:
+        type: string
+      dataCriacao:
+        type: string
+      estiloProjecao:
+        $ref: '#/definitions/main.EstiloProjecao'
+      id:
+        type: string
+      letra:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      titulo:
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: API REST para gerenciamento de músicas e coleções.
+  title: Music API
+  version: "1.0"
+paths:
+  /colecoes:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Colecao'
+            type: array
+        "500":
+          description: Erro ao buscar coleções
+          schema:
+            type: string
+      summary: Lista todas as coleções
+      tags:
+      - colecoes
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados da coleção
+        in: body
+        name: colecao
+        required: true
+        schema:
+          $ref: '#/definitions/main.Colecao'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Colecao'
+        "400":
+          description: Erro ao decodificar JSON
+          schema:
+            type: string
+        "500":
+          description: Erro ao inserir coleção
+          schema:
+            type: string
+      summary: Cria uma nova coleção
+      tags:
+      - colecoes
+  /colecoes/{id}:
+    delete:
+      parameters:
+      - description: ID da coleção
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: ID inválido
+          schema:
+            type: string
+        "500":
+          description: Erro ao remover coleção
+          schema:
+            type: string
+      summary: Remove uma coleção
+      tags:
+      - colecoes
+    get:
+      parameters:
+      - description: ID da coleção
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Colecao'
+        "400":
+          description: ID inválido
+          schema:
+            type: string
+        "404":
+          description: Coleção não encontrada
+          schema:
+            type: string
+      summary: Busca uma coleção por ID
+      tags:
+      - colecoes
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID da coleção
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados da coleção
+        in: body
+        name: colecao
+        required: true
+        schema:
+          $ref: '#/definitions/main.Colecao'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Colecao'
+        "400":
+          description: ID inválido ou erro ao decodificar JSON
+          schema:
+            type: string
+        "500":
+          description: Erro ao atualizar coleção
+          schema:
+            type: string
+      summary: Atualiza uma coleção existente
+      tags:
+      - colecoes
+  /musicas:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Musica'
+            type: array
+        "500":
+          description: Erro ao buscar músicas
+          schema:
+            type: string
+      summary: Lista todas as músicas
+      tags:
+      - musicas
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dados da música
+        in: body
+        name: musica
+        required: true
+        schema:
+          $ref: '#/definitions/main.Musica'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Musica'
+        "400":
+          description: Erro ao decodificar JSON
+          schema:
+            type: string
+        "500":
+          description: Erro ao inserir música
+          schema:
+            type: string
+      summary: Cria uma nova música
+      tags:
+      - musicas
+  /musicas/{id}:
+    delete:
+      parameters:
+      - description: ID da música
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: ID inválido
+          schema:
+            type: string
+        "500":
+          description: Erro ao remover música
+          schema:
+            type: string
+      summary: Remove uma música
+      tags:
+      - musicas
+    get:
+      parameters:
+      - description: ID da música
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Musica'
+        "400":
+          description: ID inválido
+          schema:
+            type: string
+        "404":
+          description: Música não encontrada
+          schema:
+            type: string
+      summary: Busca uma música por ID
+      tags:
+      - musicas
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID da música
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados da música
+        in: body
+        name: musica
+        required: true
+        schema:
+          $ref: '#/definitions/main.Musica'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Musica'
+        "400":
+          description: ID inválido ou erro ao decodificar JSON
+          schema:
+            type: string
+        "500":
+          description: Erro ao atualizar música
+          schema:
+            type: string
+      summary: Atualiza uma música existente
+      tags:
+      - musicas
+swagger: "2.0"

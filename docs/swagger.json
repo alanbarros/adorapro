@@ -1,0 +1,485 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API REST para gerenciamento de músicas e coleções.",
+        "title": "Music API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8081",
+    "basePath": "/",
+    "paths": {
+        "/colecoes": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "colecoes"
+                ],
+                "summary": "Lista todas as coleções",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Colecao"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao buscar coleções",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "colecoes"
+                ],
+                "summary": "Cria uma nova coleção",
+                "parameters": [
+                    {
+                        "description": "Dados da coleção",
+                        "name": "colecao",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Colecao"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/main.Colecao"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao decodificar JSON",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao inserir coleção",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/colecoes/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "colecoes"
+                ],
+                "summary": "Busca uma coleção por ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da coleção",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Colecao"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Coleção não encontrada",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "colecoes"
+                ],
+                "summary": "Atualiza uma coleção existente",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da coleção",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da coleção",
+                        "name": "colecao",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Colecao"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Colecao"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido ou erro ao decodificar JSON",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar coleção",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "colecoes"
+                ],
+                "summary": "Remove uma coleção",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da coleção",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao remover coleção",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/musicas": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "musicas"
+                ],
+                "summary": "Lista todas as músicas",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Musica"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao buscar músicas",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "musicas"
+                ],
+                "summary": "Cria uma nova música",
+                "parameters": [
+                    {
+                        "description": "Dados da música",
+                        "name": "musica",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Musica"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/main.Musica"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao decodificar JSON",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao inserir música",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/musicas/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "musicas"
+                ],
+                "summary": "Busca uma música por ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da música",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Musica"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Música não encontrada",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "musicas"
+                ],
+                "summary": "Atualiza uma música existente",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da música",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da música",
+                        "name": "musica",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Musica"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Musica"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido ou erro ao decodificar JSON",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar música",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "musicas"
+                ],
+                "summary": "Remove uma música",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da música",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao remover música",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.Colecao": {
+            "type": "object",
+            "properties": {
+                "autor": {
+                    "type": "string"
+                },
+                "dataAtualizacao": {
+                    "type": "string"
+                },
+                "dataCriacao": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "musicas": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "titulo": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.EstiloProjecao": {
+            "type": "object",
+            "properties": {
+                "corFundo": {
+                    "type": "string"
+                },
+                "corTexto": {
+                    "type": "string"
+                },
+                "tamanhoFonte": {
+                    "type": "integer"
+                }
+            }
+        },
+        "main.Musica": {
+            "type": "object",
+            "properties": {
+                "autor": {
+                    "type": "string"
+                },
+                "categoria": {
+                    "type": "string"
+                },
+                "dataAtualizacao": {
+                    "type": "string"
+                },
+                "dataCriacao": {
+                    "type": "string"
+                },
+                "estiloProjecao": {
+                    "$ref": "#/definitions/main.EstiloProjecao"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "letra": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "titulo": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

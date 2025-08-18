@@ -9,7 +9,7 @@ API REST em Go para gerenciamento de músicas, utilizando MongoDB e Docker Compo
    docker-compose up --build
    ```
 
-2. Acesse a API em: http://localhost:8080
+2. Acesse a API em: http://localhost:8081
 
 ## Estrutura do Projeto
 - `main.go`: ponto de entrada da aplicação
